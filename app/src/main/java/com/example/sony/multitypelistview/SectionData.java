@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by sony on 2016-01-22.
  */
-public class SectionData implements MultiType{
+public class SectionData {
     String title;
     List<ItemData> itemlist = new ArrayList<ItemData>();
 }

@@ -20,17 +20,7 @@ public class MyAdapter extends BaseAdapter {
     private static final int IDS_VIEW_TYPE_COUNT = 2;
     private static final int TYPE_SECTION = 0;
     private static final int TYPE_ITEM = 1;
-//
-//    public void putSection(String sectionTitle){
-//       SectionData data = new SectionData();
-//        data.title = sectionTitle;
-//        total.add(data);
-//    }
-//    public void putItem(String title){
-//        ItemData data = new ItemData();
-//        data.title = title;
-//        total.add(data);
-//    }
+
     public void add(String sectionTitle, String itemTitle) {
         SectionData section = null;
         for (SectionData s : items) {
