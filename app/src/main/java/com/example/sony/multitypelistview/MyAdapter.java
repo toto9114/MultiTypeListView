@@ -21,6 +21,22 @@ public class MyAdapter extends BaseAdapter {
     private static final int TYPE_SECTION = 0;
     private static final int TYPE_ITEM = 1;
 
+    public String getTitle(int position){
+        SectionData data;
+        for(int i=0; i<items.size();i++) {
+            data = items.get(i);
+            if (position < 1) {
+                return data.title;
+            }
+            position--;
+            int childCount = data.itemlist.size();
+            if(position<childCount){
+                return data.title + data.itemlist.get(position).title;
+            }
+            position-=childCount;
+        }
+        return null;
+    }
     public void add(String sectionTitle, String itemTitle) {
         SectionData section = null;
         for (SectionData s : items) {
@@ -62,7 +78,11 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return items.size();
+        int count= 0;
+        for(int i=0;i<items.size();i++){
+            count += 1 + items.get(i).itemlist.size();
+        }
+        return count;
     }
 
     @Override
@@ -82,10 +102,8 @@ public class MyAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.i(TAG, "getViewPosition..:" + position);
         switch (getItemViewType(position)) {
             case TYPE_SECTION: {
-                Log.i(TAG, "section");
                 SectionView view;
                 if (convertView == null) {
                     view = new SectionView(parent.getContext());
@@ -94,7 +112,6 @@ public class MyAdapter extends BaseAdapter {
                 }
                 for (int i = 0; i < items.size(); i++) {
                     if (position < 1) {
-                        Log.i(TAG, "Group Position: " + position + ", data: "+ items.get(i).title);
                         view.setTitle(items.get(i));
                         return view;
                     }
@@ -116,7 +133,6 @@ public class MyAdapter extends BaseAdapter {
                     int childCount = items.get(i).itemlist.size();
                     if (position < childCount) {
                         ItemData data = items.get(i).itemlist.get(position);
-                        Log.i(TAG, "Child Position:  " + position + ", data: "+data.title);
                         view.setTitle(data);
                         return view;
                     }
@@ -127,5 +143,6 @@ public class MyAdapter extends BaseAdapter {
         }
         return null;
     }
+
 }
 
